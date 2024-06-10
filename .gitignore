@@ -50,6 +50,9 @@
 /web/update.php
 /web/web.config
 
+/web/modules/contrib
+/web/themes/contrib
+
 # Ignore vendor dependencies and scripts
 /vendor
 /composer.phar
