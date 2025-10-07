@@ -111,13 +111,17 @@ export default function Portfolio() {
                     <h2 className="text-5xl font-bold mb-4">
                         Full-Stack Web Developer
                     </h2>
-                    <p className="text-xl text-gray-400 mb-6">
+                    <p className="text-xl text-gray-400 mb-4">
                         Consultant at BizInteligence Technologies | M.Tech Student at BITS Pilani
                     </p>
+                    <div className="inline-block px-6 py-2 bg-green-500/20 border border-green-500 rounded-lg mb-6">
+                        <p className="text-green-400 font-semibold">🇪🇺 Available for Hire in Germany/EU</p>
+                    </div>
                     <p className="text-lg text-gray-300 mb-8 leading-relaxed max-w-3xl mx-auto">
                         With 12 years of experience in software engineering, I specialize in complex web app development
                         and building scalable infrastructure for millions of users. Former Meta engineer with expertise
-                        in Drupal, React, and modern web technologies.
+                        in Drupal, React, and modern web technologies. Currently seeking full-stack development opportunities
+                        in Germany and the EU.
                     </p>
                     <div className="flex gap-4 justify-center mb-8">
                         <a href="https://github.com/anishsheela/" target="_blank" rel="noopener noreferrer"
@@ -290,10 +294,23 @@ export default function Portfolio() {
             {/* Contact */}
             <section id="contact" className="py-20 px-6 bg-gray-800/30">
                 <div className="container mx-auto max-w-2xl text-center">
+                    <div className="inline-block px-6 py-3 bg-green-500/20 border border-green-500 rounded-lg mb-6">
+                        <p className="text-green-400 font-bold text-lg">✅ Open to Opportunities in Germany/EU</p>
+                    </div>
                     <h3 className="text-3xl font-bold mb-6">Let's Work Together</h3>
-                    <p className="text-gray-400 mb-8">
-                        I'm seeking full-stack web development roles and always interested in hearing about new projects and opportunities.
+                    <p className="text-gray-400 mb-4">
+                        I'm actively seeking full-stack web development roles in Germany and the European Union.
                     </p>
+                    <p className="text-gray-300 mb-6">
+                        With German B1 proficiency, 12 years of international experience (Singapore, India),
+                        and expertise in modern web technologies, I'm ready to contribute to your team.
+                    </p>
+                    <div className="bg-gray-800 rounded-lg p-4 mb-8 max-w-lg mx-auto">
+                        <p className="text-sm text-gray-300">
+                            <span className="text-blue-400 font-semibold">✈️ Open to Relocation</span> •
+                            Germany Opportunity Card visa in process
+                        </p>
+                    </div>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                         <a
                             href="mailto:aneesh.nl@gmail.com"
