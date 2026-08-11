@@ -101,21 +101,38 @@ const projects = [
         meta: 'M.Tech dissertation · open source · 2025 to 2026',
         href: 'https://roads.anishsheela.com/',
         hrefLabel: 'roads.anishsheela.com',
-        body: 'An end-to-end pipeline that turns dashcam video into an interactive road-condition map: FFmpeg frame extraction, Tesseract OCR for GPS telemetry, a Swin Transformer classifier trained via active learning, and OpenStreetMap segment matching. Includes YOLOv8 pothole detection and smoothest-path routing over the quality-scored road graph.',
+        body: 'A dashcam records the road on an ordinary drive. This turns that footage into a map of how good or bad the surface actually is, stretch by stretch, and can then route you along the smoothest way rather than the shortest. It works out where the camera was from the timestamp burned into the video, and learns to recognize a rough surface or a pothole from the picture itself.',
+        why: 'Road condition surveys are expensive, so they happen rarely and cover very little. Anyone with a dashcam is already carrying the sensor, which matters most on the roads official surveys never reach. A smoother route is also an accessibility question for anyone on two wheels, in a wheelchair, or carrying a patient.',
     },
     {
         title: 'ApplyQuest',
-        meta: 'Full-stack platform · production · 2026',
-        href: 'https://github.com/anishanilkumar/applyquest',
-        hrefLabel: 'github.com/anishanilkumar/applyquest',
-        body: 'A job-search tracking platform (FastAPI, React, TypeScript, PostgreSQL) with analytics, a Firefox extension for one-click job capture, and scheduled email digests. Ships an MCP server that lets AI agents reconcile tracked applications against a Gmail inbox.',
+        meta: 'Full-stack platform · live · 2026',
+        href: 'https://applyquest.anishsheela.com',
+        hrefLabel: 'applyquest.anishsheela.com',
+        body: 'A job hunt is hundreds of applications spread over months, with long silences and very little feedback. ApplyQuest keeps all of it in one place: where each application stands, who you have spoken to, what needs a follow up this week. It borrows from games, awarding points and streaks for the effort you control, because the outcome mostly is not. A browser add-on saves a posting in one click, and a weekly email tells you where things stand.',
+        why: 'Job hunting is demoralizing precisely because effort and results come apart. Rewarding the applications you sent, rather than the replies you did not get, is what keeps people going through the part that actually decides whether they get hired.',
+    },
+    {
+        title: 'Grocy MCP',
+        meta: 'Open source · AI assistant tooling · 2026',
+        href: 'https://github.com/anishanilkumar/grocy-mcp',
+        hrefLabel: 'github.com/anishanilkumar/grocy-mcp',
+        body: 'Grocy is open source software for tracking what is in your kitchen. This connects it to an AI assistant, so instead of tapping through an inventory app you just ask: what is going off this week, what can I cook with it, add coconut milk to the list. The assistant reads and updates the real inventory as you talk. The careful part is what it refuses to do: if a product name could mean two things, it stops and asks instead of guessing and quietly moving the wrong item.',
+        why: 'Food gets thrown out because nobody remembers what is already in the cupboard, and an inventory only helps if keeping it current is effortless. It is also a small, honest test of a much bigger question: how do you let an AI assistant change real data without letting it get things wrong in ways nobody notices?',
+    },
+    {
+        title: 'Jarvis, a home server that rebuilds itself',
+        meta: 'Home infrastructure · NixOS · 2025 to 2026',
+        body: 'A Raspberry Pi in the living room runs the household: media for everyone in the house, automatic Mac backups, monitoring, remote access. The whole machine is described in one set of text files, so if the memory card dies I write a fresh one and get the identical server back, with no trying to remember which settings I clicked two years ago. Storage works like a good kitchen: everything lands on the fast drive first and drains to the big slow one in the background, and if the external disk is unplugged the server keeps going with what it has rather than refusing to start.',
+        why: 'Most home servers are built by hand and understood only by the person who built them, so they die with the hardware or with that person’s memory of it. Writing the machine down as code makes it repeatable and reviewable, which is the same discipline that keeps systems at work recoverable. The parts I am happiest with are the ones that fail safely: a service with no route to the internet at all unless its private tunnel is up, and storage that degrades instead of collapsing when a drive goes missing.',
     },
     {
         title: 'Content Authenticity Toolkit',
         meta: 'Media provenance · proof of concept · 2026',
         href: 'https://github.com/anishanilkumar',
         hrefLabel: 'github.com/anishanilkumar',
-        body: 'Register images and PDFs with PGP signatures, plus a Firefox extension that verifies signed media in the browser using perceptual hashing. Tamper detection that survives recompression.',
+        body: 'A way to prove that a photo or document is the one you published and has not been altered since. You sign your images and PDFs, and a browser add-on checks the signature as you browse, flagging anything that has been changed. It still recognizes a picture that was resized or re-saved along the way, which is what normally breaks this kind of check.',
+        why: 'Convincing fake images are now trivial to make, so proving a real one is real has become the harder problem. This puts the proof with the person who made the file, instead of asking viewers to spot a fake by eye.',
     },
 ];
 
@@ -331,29 +348,47 @@ export default function App() {
                 <section id="projects" className="border-t border-hair py-20">
                     <SectionHead label="Selected work" title="Things I have built" />
                     <div className="space-y-5">
-                        {projects.map((p) => (
-                            <a
-                                key={p.title}
-                                href={p.href}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="group block rounded-xl border border-hair bg-panel p-6 transition-colors hover:border-navy sm:p-7"
-                            >
-                                <div className="flex items-start justify-between gap-4">
-                                    <div>
-                                        <h3 className="font-display text-xl font-semibold text-ink">{p.title}</h3>
-                                        <div className="mt-1 font-mono text-xs text-muted">{p.meta}</div>
+                        {projects.map((p) => {
+                            const Card = p.href ? 'a' : 'div';
+                            const linkProps = p.href
+                                ? { href: p.href, target: '_blank', rel: 'noopener noreferrer' }
+                                : {};
+                            return (
+                                <Card
+                                    key={p.title}
+                                    {...linkProps}
+                                    className={`group block rounded-xl border border-hair bg-panel p-6 sm:p-7 ${
+                                        p.href ? 'transition-colors hover:border-navy' : ''
+                                    }`}
+                                >
+                                    <div className="flex items-start justify-between gap-4">
+                                        <div>
+                                            <h3 className="font-display text-xl font-semibold text-ink">{p.title}</h3>
+                                            <div className="mt-1 font-mono text-xs text-muted">{p.meta}</div>
+                                        </div>
+                                        {p.href && (
+                                            <span className="mt-1 font-mono text-lg text-muted transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-route">
+                                                ↗
+                                            </span>
+                                        )}
                                     </div>
-                                    <span className="mt-1 font-mono text-lg text-muted transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-route">
-                                        ↗
-                                    </span>
-                                </div>
-                                <p className="mt-4 max-w-3xl leading-relaxed text-muted">{p.body}</p>
-                                <div className="mt-4 font-mono text-[13px] text-navy group-hover:text-route">
-                                    {p.hrefLabel}
-                                </div>
-                            </a>
-                        ))}
+                                    <p className="mt-4 max-w-3xl leading-relaxed text-muted">{p.body}</p>
+                                    {p.why && (
+                                        <div className="mt-5 border-t border-hair pt-4">
+                                            <div className="font-mono text-xs uppercase tracking-[0.16em] text-navy">
+                                                Why it matters
+                                            </div>
+                                            <p className="mt-2 max-w-3xl leading-relaxed text-muted">{p.why}</p>
+                                        </div>
+                                    )}
+                                    {p.hrefLabel && (
+                                        <div className="mt-4 font-mono text-[13px] text-navy group-hover:text-route">
+                                            {p.hrefLabel}
+                                        </div>
+                                    )}
+                                </Card>
+                            );
+                        })}
                     </div>
                 </section>
 
